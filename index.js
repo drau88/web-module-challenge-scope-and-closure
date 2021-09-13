@@ -29,8 +29,12 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   
   1. What is the difference between counter1 and counter2?
   
+  In the code for counter1, the count variable is inside of the counterMaker function. In counter2, the count variable exists outside of any function.
+
   2. Which of the two uses a closure? How can you tell?
   
+
+
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
 */
@@ -63,7 +67,7 @@ NOTE: This will be a callback function for the tasks below
 */
 
 function inning(/*Code Here*/){
-    /*Code Here*/
+    return Math.floor(Math.random() * 3);
 }
 
 
@@ -80,9 +84,18 @@ Use the finalScore function below to do the following:
   "Away": 5
 }
 */ 
+function finalScore(inningcb, inningsToBePlayed){
+  let teamScores = {
+    Home: inningcb(),
+    Away: inningcb()
+  }
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+  for (let i = 0; i < inningsToBePlayed; i++){
+    teamScores.Home = teamScores.Home + inningcb;
+    teamScores.Away = teamScores.Away + inningcb;
+  }
+
+  return teamScores;
 }
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -101,7 +114,7 @@ Use the scoreboard function below to do the following:
   2. Receive the callback function `inning` from Task 2
   3. Receive a number of innings to be played
   4. Return an array where each of it's index values equals a string stating the
-  Home and Away team's scores for each inning.  Not the cummulative score.
+  Home and Away team's scores for each inning.  Not the cumulative score.
   5. If there's a tie at the end of the innings, add this message containing the score to the end of the array:  "This game will require extra innings: Away 12 - Home 12"  (see tie example below)
      If there isn't a tie, add this message to the end of the array: "Final Score: Away 13 - Home 11"  (see no tie example below)
   
