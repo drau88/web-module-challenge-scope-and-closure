@@ -59,6 +59,9 @@ You will be running your tests in one terminal and debugging in the other. As yo
 Edit the `ReadMe` file with your answers to the questions below.
 
 1. In your own words, define closure (1-2 sentences).
+
+  The term closure describes any instance in which a function is referencing material outside of itself. This is frequently a variable which exists outside of the function scope.
+
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -80,9 +83,16 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+
+Closure is occurring at the value of newRoll, as the Math object is not defined within the scope of the function. Instead, Math is a global object which is being pulled into the function.
+
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+
+For each invocation of dansRoll, the value of name will stay the same, as it is being passed to the function as an argument in the same way each time. The value of newRoll, however, will change, as a random number is being generated.
+
 c. What is the lexical scope of `newRoll`? 
 
+"newRoll" exists at the scope of the unnamed function in which it is contained. 
 
 ### Task 3 - Stretch Goals
 
