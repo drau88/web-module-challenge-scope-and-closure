@@ -29,14 +29,17 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   
   1. What is the difference between counter1 and counter2?
   
-  In the code for counter1, the count variable is inside of the counterMaker function. In counter2, the count variable exists outside of any function.
+  In the code for counter1, the count variable is inside of the counterMaker function. In counter2, the count variable exists outside of any function in the global scope.
 
   2. Which of the two uses a closure? How can you tell?
   
-
+  Counter1 uses a closure, as the counter function accesses the count variable in the counterMaker function. 
 
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+
+  Counter2 is preferable only when the count variable needs to exist in the global scope. In all other cases, the first method is preferable, as 
+
 */
 
 // counter1 code
@@ -91,8 +94,8 @@ function finalScore(inningcb, inningsToBePlayed){
   }
 
   for (let i = 0; i < inningsToBePlayed; i++){
-    teamScores.Home = teamScores.Home + (teamScores.Home + inningcb());
-    teamScores.Away = teamScores.Away + (teamScores.Away + inningcb());
+    teamScores.Home = teamScores.Home +  inningcb();
+    teamScores.Away = teamScores.Away +  inningcb();
   }
 
   return teamScores;
@@ -142,7 +145,7 @@ Use the scoreboard function below to do the following:
 [
   "Inning 1: Away 1 - Home 1", 
   "Inning 2: Away 2 - Home 2",
-  "Inning 3: Away 1 - Home 0", 
+  "Inning 3: Away 1 - Home 0",
   "Inning 4: Away 1 - Home 2", 
   "Inning 5: Away 0 - Home 0", 
   "Inning 6: Away 2 - Home 1", 
@@ -153,8 +156,22 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScorecb, inningcb, inningsToBePlayed) {
+  const scoreTracker = [];
+  let homeScore = 0;
+  let awayScore = 0;
+  for (let i = 0; i < inningsToBePlayed; i++){
+    const currentInning = getInningScorecb(inningcb);
+    homeScore = homeScore + currentInning.Home;
+    awayScore = awayScore + currentInning.Away;
+    scoreTracker.push(`Inning ${i+1}: Away ${currentInning.Away} - Home ${currentInning.Home}`);
+  }
+  if (homeScore === awayScore){
+    scoreTracker.push(`This game will require extra innings: Away ${awayScore} - Home ${homeScore}`);
+  } else {
+    scoreTracker.push(`Final Score: Away ${awayScore} - Home ${homeScore}`);
+  }
+  return scoreTracker;
 }
 
 
